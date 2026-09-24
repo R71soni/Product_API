@@ -1,5 +1,3 @@
-// animated login page using tailwind 
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../AllCSS/Login.css";
@@ -7,6 +5,7 @@ import productService from "../services/productService";
 
 function Login() {
 
+    // use for navigate to home page 
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -47,8 +46,7 @@ function Login() {
         try {
 
             // Call backend
-            const response =
-                await productService.loginUser(formData);
+            const response = await productService.loginUser(formData);
 
             console.log("Logged in user:", response);
 
@@ -120,13 +118,6 @@ function Login() {
 
             <div className="login-card">
 
-                {/* =========================
-                    LOGO
-                ========================= */}
-
-                <div className="login-logo">
-                    J
-                </div>
 
 
                 {/* =========================
@@ -194,10 +185,7 @@ function Login() {
 
                             <input
                                 type={
-                                    showPassword
-                                        ? "text"
-                                        : "password"
-                                }
+                                    showPassword ? "text" : "password" }
                                 name="password"
                                 placeholder="Enter your password"
                                 value={formData.password}
@@ -216,9 +204,7 @@ function Login() {
                                     )
                                 }
                             >
-                                {showPassword
-                                    ? "🙈"
-                                    : "👁"}
+                                {showPassword? "🙈" : "👁"}
                             </button>
 
                         </div>

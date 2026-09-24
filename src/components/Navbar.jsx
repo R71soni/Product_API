@@ -21,7 +21,9 @@ function Navbar({ cartCount = 0, search, setSearch }) {
 
         try {
             return JSON.parse(savedUser);
-        } catch (error) {
+
+        }
+         catch (error) {
             console.error("Invalid user data:", error);
             localStorage.removeItem("user");
             return null;
@@ -38,8 +40,7 @@ function Navbar({ cartCount = 0, search, setSearch }) {
 
         const handleUserChange = () => {
 
-            const savedUser =
-                localStorage.getItem("user");
+            const savedUser = localStorage.getItem("user");
 
             if (savedUser) {
 
@@ -56,6 +57,8 @@ function Navbar({ cartCount = 0, search, setSearch }) {
                         error
                     );
 
+                    //when logout 
+
                     localStorage.removeItem("user");
                     setUser(null);
                 }
@@ -68,32 +71,19 @@ function Navbar({ cartCount = 0, search, setSearch }) {
         };
 
 
-        window.addEventListener(
-            "userLogin",
-            handleUserChange
-        );
+        window.addEventListener( "userLogin", handleUserChange );
 
-        window.addEventListener(
-            "userLogout",
-            handleUserChange
-        );
+        window.addEventListener( "userLogout", handleUserChange );
 
 
         return () => {
 
-            window.removeEventListener(
-                "userLogin",
-                handleUserChange
-            );
+            window.removeEventListener( "userLogin", handleUserChange );
 
-            window.removeEventListener(
-                "userLogout",
-                handleUserChange
-            );
+            window.removeEventListener("userLogout",  handleUserChange );
 
         };
-
-    }, []);
+  }, []);
 
 
     // =========================
@@ -219,10 +209,7 @@ function Navbar({ cartCount = 0, search, setSearch }) {
 
                 <span className="small-text">
 
-                    {user
-                        ? `Hello, ${user.name || user.email}`
-                        : "Hello, sign in"
-                    }
+                    {user  ? `Hello, ${user.name || user.email}`  : "Hello, sign in"  }
 
                 </span>
 

@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
-import EditProduct from "./pages/EditProduct";
+import EditProduct from "./pages/Editproduct";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Login from "./Auth/Login"
