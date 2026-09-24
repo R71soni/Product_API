@@ -1,0 +1,22 @@
+.auto-slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+.auto-slider .swiper {
+    width: 100%;
+    height: auto;
+}
+
+.auto-slider .swiper-slide {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.auto-slider .swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}

@@ -6,31 +6,49 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-import Home from "./pages/Home";
-import Products from "./pages/Product";
+import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
 import Cart from "./pages/Cart";
-
+import Orders from "./pages/Orders";
+import Login from "./Auth/Login"
+import Register from "./Auth/Register"
 
 function App() {
 
+    // =====================================
+    // CART STATE
+    // =====================================
+
     const [cart, setCart] = useState([]);
 
-    // Add product to cart
+
+    // =====================================
+    // SEARCH STATE
+    // =====================================
+
+    const [search, setSearch] = useState("");
+
+
+    // =====================================
+    // ADD TO CART
+    // =====================================
+
     const addToCart = (product) => {
 
-        setCart((prevCart) => {
+        setCart((previousCart) => {
 
-            const existingProduct = prevCart.find(
+            const existingProduct = previousCart.find(
                 (item) => item.id === product.id
             );
 
+            // Product already exists
             if (existingProduct) {
 
-                return prevCart.map((item) =>
+                return previousCart.map((item) =>
                     item.id === product.id
                         ? {
                             ...item,
@@ -38,63 +56,106 @@ function App() {
                         }
                         : item
                 );
-
             }
 
+            // New product
             return [
-                ...prevCart,
+                ...previousCart,
                 {
                     ...product,
                     quantity: 1
                 }
             ];
-
         });
-
     };
 
 
-    // Remove product from cart
+    // =====================================
+    // REMOVE FROM CART
+    // =====================================
+
     const removeFromCart = (id) => {
 
-        setCart((prevCart) =>
-            prevCart.filter(
+        setCart((previousCart) =>
+            previousCart.filter(
                 (item) => item.id !== id
             )
         );
-
     };
 
 
-    return (
+    // =====================================
+    // CART COUNT
+    // =====================================
 
+    const cartCount = cart.reduce(
+        (total, item) =>
+            total + item.quantity,
+        0
+    );
+
+
+    return (
         <BrowserRouter>
 
+            {/* =================================
+                NAVBAR
+            ================================= */}
+
             <Navbar
-                cartCount={cart.reduce(
-                    (total, item) =>
-                        total + item.quantity,
-                    0
-                )}
+                cartCount={cartCount}
+                search={search}
+                setSearch={setSearch}
             />
+
+
+            {/* =================================
+                ROUTES
+            ================================= */}
 
             <Routes>
 
-                {/* Home */}
+                {/* Products Page */}
+
                 <Route
                     path="/"
-                    element={<Home />}
+                    element={
+                        <Products
+                            search={search}
+                            addToCart={addToCart}
+                        />
+                    }
                 />
 
 
-                {/* Products */}
                 <Route
                     path="/products"
-                    element={<Products />}
+                    element={
+                        <Products
+                            search={search}
+                            addToCart={addToCart}
+                        />
+                    }
+                />
+
+                <Route
+                    path="/orders"
+                    element={<Orders />}
+                />
+
+                <Route
+                    path="/Login"
+                    element={<Login />}
+                />
+
+                 <Route
+                    path="/Register"
+                    element={<Register />}
                 />
 
 
                 {/* Product Details */}
+
                 <Route
                     path="/products/:id"
                     element={
@@ -104,22 +165,31 @@ function App() {
                     }
                 />
 
+                
+
 
                 {/* Add Product */}
+
                 <Route
                     path="/admin/add"
-                    element={<AddProduct />}
+                    element={
+                        <AddProduct />
+                    }
                 />
 
 
                 {/* Edit Product */}
+
                 <Route
                     path="/admin/edit/:id"
-                    element={<EditProduct />}
+                    element={
+                        <EditProduct />
+                    }
                 />
 
 
                 {/* Cart */}
+
                 <Route
                     path="/cart"
                     element={
@@ -132,8 +202,14 @@ function App() {
 
             </Routes>
 
-        </BrowserRouter>
 
+            {/* =================================
+                FOOTER
+            ================================= */}
+
+            <Footer />
+
+        </BrowserRouter>
     );
 }
 

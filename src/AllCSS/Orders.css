@@ -1,0 +1,200 @@
+.orders-page {
+    min-height: 70vh;
+    background: #eaeded;
+    padding: 30px 20px;
+}
+
+.orders-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.orders-container h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.orders-subtitle {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+
+/* SUCCESS MESSAGE */
+
+.return-message {
+    background: #dff6e4;
+    color: #187a35;
+    border: 1px solid #a8dfb5;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+
+/* ORDER CARD */
+
+.order-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+
+/* HEADER */
+
+.order-header {
+    background: #f6f6f6;
+    padding: 15px 20px;
+
+    display: flex;
+    gap: 60px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.order-header div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.order-header span {
+    font-size: 12px;
+    color: #666;
+}
+
+.order-header strong {
+    font-size: 14px;
+}
+
+
+/* BODY */
+
+.order-body {
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.order-image {
+    width: 130px;
+    height: 130px;
+
+    object-fit: contain;
+
+    background: #f8f8f8;
+    border-radius: 6px;
+}
+
+.order-details {
+    flex: 1;
+}
+
+.order-details h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.order-details p {
+    margin: 7px 0;
+    color: #555;
+}
+
+.order-status {
+    color: #168a35;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
+.return-status {
+    color: #d97706;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
+
+/* BUTTONS */
+
+.order-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.view-order-btn,
+.return-btn {
+    min-width: 140px;
+    padding: 10px 15px;
+
+    border-radius: 5px;
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.view-order-btn {
+    background: white;
+    border: 1px solid #999;
+}
+
+.view-order-btn:hover {
+    background: #f5f5f5;
+}
+
+.return-btn {
+    background: #ffb400;
+    border: 1px solid #e0a000;
+    color: #111;
+}
+
+.return-btn:hover {
+    background: #f0a800;
+}
+
+
+/* EMPTY ORDERS */
+
+.empty-orders {
+    background: white;
+    padding: 50px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.empty-orders h2 {
+    margin-bottom: 10px;
+}
+
+.empty-orders p {
+    color: #666;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .order-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .order-body {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-actions {
+        width: 100%;
+    }
+
+    .view-order-btn,
+    .return-btn {
+        width: 100%;
+    }
+}

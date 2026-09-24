@@ -1,109 +1,181 @@
-function Cart({ cart = [], removeFromCart }) {
+function Cart({
+    cart = [],
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity
+}) {
+
+    // =========================
+    // CALCULATE TOTAL
+    // =========================
 
     const total = cart.reduce(
-        (sum, item) =>
-            sum +
-            Number(item.price || 0) *
-            Number(item.quantity || 0),
+        (sum, item) => {
+            const price = Number(item.price || 0);
+            const quantity = Number(item.quantity || 1);
+
+            return sum + price * quantity;
+        },
         0
     );
+
+
+
+
+    // =========================
+    // EMPTY CART
+    // =========================
+
+    if (cart.length === 0) {
+        return (
+            <div className="cart-page">
+
+                <h1>Shopping Cart</h1>
+
+                <div className="empty">
+                    Your cart is empty.
+                </div>
+
+            </div>
+        );
+    }
+
+
+    // =========================
+    // CART UI
+    // =========================
 
     return (
         <div className="cart-page">
 
             <h1>Shopping Cart</h1>
 
-            {cart.length === 0 ? (
 
-                <div className="empty">
-                    Your cart is empty.
-                </div>
+            {/* =========================
+                CART ITEMS
+            ========================= */}
 
-            ) : (
+            <div className="cart-items">
 
-                <>
-                    <div className="cart-items">
+                {cart.map((item) => {
 
-                        {cart.map((item) => (
+                    const price = Number(item.price || 0);
 
-                            <div
-                                className="cart-item"
-                                key={item.id}
-                            >
+                    const quantity = Number(item.quantity || 1);
 
-                                <img
-                                    src={
-                                        item.image ||
-                                        "https://placehold.co/100x100/png?text=No+Image"
-                                    }
-                                    alt={item.title || "Product"}
-                                    onError={(e) => {
-                                        e.currentTarget.src =
-                                            "https://placehold.co/100x100/png?text=No+Image";
-                                    }}
-                                />
+                    const subtotal = price * quantity;
 
-                                <div className="cart-item-info">
 
-                                    <h3>
-                                        {item.title}
-                                    </h3>
+                    return (
+                        <div
+                            className="cart-item"
+                            key={item.id}
+                        >
 
-                                    <p>
-                                        Price: ₹
-                                        {Number(item.price || 0).toFixed(2)}
-                                    </p>
+                            {/* PRODUCT IMAGE */}
 
-                                    <p>
-                                        Quantity: {item.quantity}
-                                    </p>
+                            <img
+                                src={
+                                    item.image ||
+                                    "https://placehold.co/100x100/png?text=No+Image"
+                                }
+                                alt={item.title || "Product"}
+                                onError={(e) => {
+                                    e.currentTarget.src =
+                                        "https://placehold.co/100x100/png?text=No+Image";
+                                }}
+                            />
 
-                                    <p>
-                                        Subtotal: ₹
-                                        {(
-                                            Number(item.price || 0) *
-                                            Number(item.quantity || 0)
-                                        ).toFixed(2)}
-                                    </p>
+
+                            {/* PRODUCT INFORMATION */}
+
+                            <div className="cart-item-info">
+
+                                <h3>
+                                    {item.title}
+                                </h3>
+
+
+                                <p>
+                                    Price: ₹{price.toFixed(2)}
+                                </p>
+
+
+                                {/* QUANTITY */}
+
+                                <div className="quantity-control">
+
+                                    <button
+                                        type="button"
+                                        onClick={() => decreaseQuantity(item.id)}
+                                    >
+                                        −
+                                    </button>
+
+                                    <span>
+                                        {item.quantity || 1}
+                                    </span>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => increaseQuantity(item.id)}
+                                    >
+                                        +
+                                    </button>
 
                                 </div>
 
-                                <button
-                                    className="delete-btn"
-                                    onClick={() => {
-                                        if (removeFromCart) {
-                                            removeFromCart(item.id);
-                                        }
-                                    }}
-                                >
-                                    Remove
-                                </button>
+
+                                {/* SUBTOTAL */}
+
+                                <p>
+                                    Subtotal: ₹{subtotal.toFixed(2)}
+                                </p>
 
                             </div>
 
-                        ))}
 
-                    </div>
+                            {/* REMOVE */}
 
-                    <div className="cart-summary">
+                            <button
+                                type="button"
+                                className="delete-btn"
+                                onClick={() =>
+                                    removeFromCart(item.id)
+                                }
+                            >
+                                Remove
+                            </button>
 
-                        <h2>
-                            Total: ₹{total.toFixed(2)}
-                        </h2>
+                        </div>
+                    );
+                })}
 
-                        <button
-                            className="checkout-btn"
-                            onClick={() =>
-                                alert("Checkout coming soon!")
-                            }
-                        >
-                            Checkout
-                        </button>
+            </div>
 
-                    </div>
-                </>
 
-            )}
+            {/* =========================
+                CART SUMMARY
+            ========================= */}
+
+            <div className="cart-summary">
+
+                <h2>
+                    Total: ₹{total.toFixed(2)}
+                </h2>
+
+
+                <button
+                    type="button"
+                    className="checkout-btn"
+                    onClick={() =>
+                        alert("Checkout coming soon!")
+                    }
+                >
+                    Checkout
+                </button>
+
+            </div>
 
         </div>
     );
